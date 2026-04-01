@@ -1,0 +1,33 @@
+<div class="page">
+
+  <h2>Collectors</h2>
+
+  <table *ngIf="collectors.length > 0; else noData">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Vehicle</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let c of collectors">
+        <td>{{ c.id }}</td>
+        <td>{{ c.name }}</td>
+        <td>{{ c.vehicleId }}</td>
+        <td>
+          <button class="delete" (click)="deleteCollector(c.id!)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noData>
+    <p style="padding:16px;color:gray;">No collectors found.</p>
+  </ng-template>
+
+</div>

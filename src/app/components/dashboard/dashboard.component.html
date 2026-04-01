@@ -1,0 +1,35 @@
+<div class="dashboard">
+
+  <h2>Admin Dashboard</h2>
+
+  <button class="primary-btn" (click)="toggleAddCollector()">
+    + Add Collector
+  </button>
+
+  <!-- Add Collector Form -->
+  <div *ngIf="showAddCollector" class="form-card">
+
+    <h3>Add New Collector</h3>
+
+    <label>Collector Name</label>
+    <input
+      type="text"
+      [(ngModel)]="collectorName"
+      placeholder="Enter collector name"
+    />
+
+    <label>Vehicle ID</label>
+    <input
+      type="text"
+      [(ngModel)]="vehicleId"
+      placeholder="TRUCK01"
+    />
+
+    <div class="form-actions">
+      <button class="save-btn" (click)="saveCollector()">Save</button>
+      <button class="cancel-btn" (click)="toggleAddCollector()">Cancel</button>
+    </div>
+
+  </div>
+
+</div>

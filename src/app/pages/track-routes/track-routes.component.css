@@ -1,0 +1,14 @@
+.page {
+  padding: 24px;
+}
+
+.map-placeholder {
+  margin-top: 16px;
+  height: 300px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #374151;
+}

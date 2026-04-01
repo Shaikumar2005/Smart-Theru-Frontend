@@ -1,0 +1,24 @@
+<div class="page">
+  <h2>Assign Routes</h2>
+
+  <div class="form-card">
+
+    <label>Route</label>
+    <select [(ngModel)]="selectedRoute">
+      <option value="" disabled selected>Select Route</option>
+      <option *ngFor="let r of routes" [value]="r.id">
+        {{ r.routeName }}
+      </option>
+    </select>
+
+    <label>Collector</label>
+    <select [(ngModel)]="selectedCollector">
+      <option value="" disabled selected>Select Collector</option>
+      <option *ngFor="let c of collectors" [value]="c.id">
+        {{ c.name }} ({{ c.vehicleId }})
+      </option>
+    </select>
+
+    <button (click)="assign()">Assign</button>
+  </div>
+</div>
