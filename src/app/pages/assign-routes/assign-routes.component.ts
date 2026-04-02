@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { AssignmentService } from '../../services/assignment.service';
 import { RouteService } from '../../services/route.service';
 import { CollectorService } from '../../services/collector.service';
-import { AssignmentService } from '../../services/assignment.service';
+
+import { Assignment } from '../../models/assignment.model';
 import { Route } from '../../models/route.model';
 import { Collector } from '../../models/collector.model';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormsModule], // ✅ IMPORTANT
+  imports: [CommonModule, FormsModule],
   templateUrl: './assign-routes.component.html',
   styleUrl: './assign-routes.component.css'
 })
@@ -17,37 +20,50 @@ export class AssignRoutesComponent implements OnInit {
 
   routes: Route[] = [];
   collectors: Collector[] = [];
+  assignments: Assignment[] = [];   // ✅ THIS MUST EXIST
 
-  selectedRoute: number | null = null;
-  selectedCollector: number | null = null;
+  selectedRoute!: number;
+  selectedCollector!: number;
 
   constructor(
+    private assignmentService: AssignmentService,
     private routeService: RouteService,
-    private collectorService: CollectorService,
-    private assignmentService: AssignmentService
+    private collectorService: CollectorService
   ) {}
 
   ngOnInit(): void {
-    this.routeService.getAll().subscribe(data => {
-      this.routes = data;
-      console.log('Routes:', data);
-    });
+    this.loadAllData();   // ✅ MUST BE CALLED
+  }
 
-    this.collectorService.getAll().subscribe(data => {
-      this.collectors = data;
-      console.log('Collectors:', data);
+  loadAllData(): void {
+    this.routeService.getAll().subscribe(r => this.routes = r);
+    this.collectorService.getAll().subscribe(c => this.collectors = c);
+
+    // ✅ THIS WAS MISSING / WRONG
+    this.assignmentService.getAllAssignments().subscribe(a => {
+      console.log('Already assigned routes:', a); // ✅ DEBUG
+      this.assignments = a;
     });
   }
 
   assign(): void {
-    if (this.selectedRoute && this.selectedCollector) {
-      this.assignmentService
-        .assign(this.selectedRoute, this.selectedCollector)
-        .subscribe(() => {
-          alert('Route assigned successfully');
-        });
-    } else {
-      alert('Please select both route and collector');
+    if (!this.selectedRoute || !this.selectedCollector) {
+      alert('Select both route and collector');
+      return;
     }
+
+    this.assignmentService.assign(this.selectedRoute, this.selectedCollector)
+      .subscribe(() => {
+        alert('Route assigned');
+        this.loadAllData(); // ✅ REFRESH LIST
+      });
+  }
+
+  // ✅ DE‑ASSIGN
+  deAssign(assignmentId: number): void {
+    this.assignmentService.deAssign(assignmentId).subscribe(() => {
+      alert('Route de‑assigned');
+      this.loadAllData();
+    });
   }
 }

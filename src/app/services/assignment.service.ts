@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Assignment } from '../models/assignment.model';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Assignment } from '../models/assignment.model';
 
 @Injectable({ providedIn: 'root' })
 export class AssignmentService {
@@ -10,6 +10,11 @@ export class AssignmentService {
 
   constructor(private http: HttpClient) {}
 
+  // ✅ CORRECT METHOD NAME
+  getAllAssignments(): Observable<Assignment[]> {
+    return this.http.get<Assignment[]>(this.api);
+  }
+
   assign(routeId: number, collectorId: number): Observable<Assignment> {
     return this.http.post<Assignment>(
       `${this.api}?routeId=${routeId}&collectorId=${collectorId}`,
@@ -17,7 +22,7 @@ export class AssignmentService {
     );
   }
 
-  getByCollector(collectorId: number): Observable<Assignment[]> {
-    return this.http.get<Assignment[]>(`${this.api}/collector/${collectorId}`);
+  deAssign(assignmentId: number): Observable<void> {
+    return this.http.delete<void>(`${this.api}/${assignmentId}`);
   }
 }

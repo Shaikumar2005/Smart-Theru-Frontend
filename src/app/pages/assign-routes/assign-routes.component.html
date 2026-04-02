@@ -1,19 +1,18 @@
 <div class="page">
   <h2>Assign Routes</h2>
 
+  <!-- Assign Form -->
   <div class="form-card">
 
-    <label>Route</label>
     <select [(ngModel)]="selectedRoute">
-      <option value="" disabled selected>Select Route</option>
+      <option value="">Select Route</option>
       <option *ngFor="let r of routes" [value]="r.id">
         {{ r.routeName }}
       </option>
     </select>
 
-    <label>Collector</label>
     <select [(ngModel)]="selectedCollector">
-      <option value="" disabled selected>Select Collector</option>
+      <option value="">Select Collector</option>
       <option *ngFor="let c of collectors" [value]="c.id">
         {{ c.name }} ({{ c.vehicleId }})
       </option>
@@ -21,4 +20,34 @@
 
     <button (click)="assign()">Assign</button>
   </div>
+
+  <!-- Assigned Routes Section -->
+  <h3>Already Assigned Routes</h3>
+
+  <table *ngIf="assignments.length > 0; else noData">
+    <thead>
+      <tr>
+        <th>Collector</th>
+        <th>Route</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let a of assignments">
+        <td>{{ a.collector.name }}</td>
+        <td>{{ a.route.routeName }}</td>
+        <td>
+          <button class="delete" (click)="deAssign(a.id!)">
+            De‑Assign
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noData>
+    <p style="color: gray;">No routes assigned yet.</p>
+  </ng-template>
+
 </div>
