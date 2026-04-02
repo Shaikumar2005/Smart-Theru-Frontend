@@ -58,3 +58,90 @@ input {
   border-radius: 6px;
   cursor: pointer;
 }
+.dashboard-section {
+  margin-top: 32px;
+}
+
+.overview-grid,
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.overview-card,
+.action-card {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.overview-card span {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.overview-card strong {
+  font-size: 26px;
+  display: block;
+  margin-top: 6px;
+}
+
+.action-card h4 {
+  margin-bottom: 6px;
+}
+
+.action-card p {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+.action-card a {
+  color: #7c3aed;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.dashboard-section.info ul {
+  padding-left: 18px;
+  color: #374151;
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.action-card {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+.action-card h4 {
+  margin-bottom: 6px;
+  color: #111827;
+}
+
+.action-card p {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+.action-card span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #7c3aed;
+}
