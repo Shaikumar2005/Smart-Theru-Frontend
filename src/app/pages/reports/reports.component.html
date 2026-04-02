@@ -1,7 +1,60 @@
-<div class="page">
-  <h2>Reports</h2>
-  <p class="desc">Waste collection summary & analytics</p>
+<div class="page" #reportContent>
 
-  <div class="card">Daily Collection: ✅ Completed</div>
-  <div class="card">Missed Checkpoints: 1</div>
+  <!-- Header -->
+  <div class="reports-header">
+    <h2>Admin Reports</h2>
+
+    <button class="export-btn" (click)="exportPDF()">
+      Export as PDF
+    </button>
+  </div>
+
+  <!-- Date Filter -->
+  <div class="date-filter">
+    <input type="date" [(ngModel)]="fromDate">
+    <input type="date" [(ngModel)]="toDate">
+    <button class="apply-btn" (click)="loadDateReport()">Apply</button>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="stats-grid">
+
+    <div class="card">
+      <h4>Total Routes</h4>
+      <p>{{ report?.totalRoutes }}</p>
+    </div>
+
+    <div class="card">
+      <h4>Total Collectors</h4>
+      <p>{{ report?.totalCollectors }}</p>
+    </div>
+
+    <div class="card">
+      <h4>Total Assignments</h4>
+      <p>{{ report?.totalAssignments }}</p>
+    </div>
+
+    <div class="card success">
+      <h4>Active Assignments</h4>
+      <p>{{ report?.activeAssignments }}</p>
+    </div>
+
+    <div class="card danger">
+      <h4>Completed Assignments</h4>
+      <p>{{ report?.completedAssignments }}</p>
+    </div>
+
+  </div>
+
+  <!-- Charts -->
+  <div class="charts-row">
+    <div class="chart-card">
+      <canvas id="routeChart"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <canvas id="assignmentChart"></canvas>
+    </div>
+  </div>
+
 </div>
